@@ -2,7 +2,7 @@
 """
 YOUR HEADER COMMENT HERE
 
-@author: YOUR NAME HERE
+@author: Cecilia Diehl
 
 """
 
@@ -30,9 +30,20 @@ def get_complement(nucleotide):
     >>> get_complement('C')
     'G'
     """
-    # TODO: implement this
-    pass
+    if nucleotide == 'A':
+    	complement = 'T'
+    elif nucleotide == 'C':
+        complement = 'G'
+    elif nucleotide == 'T':
+        complement = 'A'
+    elif nucleotide == 'G':
+        complement = 'C'
+    else :
+    	return "Not a base pair"
 
+    return complement
+
+#dna = "ACTG"
 
 def get_reverse_complement(dna):
     """ Computes the reverse complementary sequence of DNA for the specfied DNA
@@ -45,8 +56,18 @@ def get_reverse_complement(dna):
     >>> get_reverse_complement("CCGCGTTCA")
     'TGAACGCGG'
     """
-    # TODO: implement this
-    pass
+    full_complement = "" #saying that reverse_complement is a string
+    reverse_complement = ""
+    i = 0
+    for letter in dna:
+        complement = get_complement(letter)
+        full_complement = full_complement + complement #filling reverse_complement with get_complement   print reverse_complement
+    
+    for i in range(1, len(full_complement)+1):
+        nucleotide = full_complement[-i]
+        reverse_complement = reverse_complement + nucleotide
+    
+    return reverse_complement #if I gave it 'ACT' it gives me 'TGA'
 
 
 def rest_of_ORF(dna):
@@ -59,11 +80,33 @@ def rest_of_ORF(dna):
         returns: the open reading frame represented as a string
     >>> rest_of_ORF("ATGTGAA")
     'ATG'
-    >>> rest_of_ORF("ATGAGATAGG")
-    'ATGAGA'
+    >>> rest_of_ORF("ATGGAGATAGG")
+    'ATGGAGA'
     """
-    # TODO: implement this
-    pass
+    stop = ["TAA", "TAG", "TGA"]
+    start = ["ATG"]
+    i = 0
+    orf = ""
+    orf_list = []
+    for i in range(0, len(dna),3):
+        if dna[i: i+3] is in stop:
+            orf_list.append(dna[:i])
+    # s1 = "TAA"
+    # s2 = "TAG"
+    # s3 = "TGA"
+    # i = 0
+    # orf = ""
+    # for i in range(0, len(dna)):
+    #     orf = orf + dna[i]
+    #     if (dna[i-2]+dna[i-1]+dna[i]) == s1:
+    #         orf = orf[:-3]
+    #         return orf
+    #     elif (dna[i-2]+dna[i-1]+dna[i]) == s2:
+    #         orf = orf[:-3]
+    #         return orf
+    #     elif (dna[i-2]+dna[i-1]+dna[i]) == s3:
+    #         orf = orf[:-3]
+    #         return orf
 
 
 def find_all_ORFs_oneframe(dna):
@@ -79,8 +122,41 @@ def find_all_ORFs_oneframe(dna):
     >>> find_all_ORFs_oneframe("ATGCATGAATGTAGATAGATGTGCCC")
     ['ATGCATGAATGTAGA', 'ATGTGCCC']
     """
-    # TODO: implement this
-    pass
+
+    s1 = "TAA"
+    s2 = "TAG"
+    s3 = "TGA"
+    stop = ["TAA", "TAG", "TGA"]
+    start = ["ATG"]
+    i = 0
+    orf = ""
+    orf_list = []
+    for i in range(0, len(dna),3):
+        if dna[i: i+3] is in stop:
+            orf_list.append(dna[:i])
+
+        # orf = orf + dna[i]
+        # if len(orf_list) == 0:
+        #     if (dna[i-2]+dna[i-1]+dna[i]) == s1:
+        #         orf_list.append(orf[:-3])
+        #         orf = ""
+        #     elif (dna[i-2]+dna[i-1]+dna[i]) == s2:
+        #         orf_list.append(orf[:-3])
+        #         orf = ""
+        #     elif (dna[i-2]+dna[i-1]+dna[i]) == s3:
+        #         orf_list.append(orf[:-3])
+        #         orf = ""
+        # elif len(orf_list) != 0:
+        #     if (dna[i-2]+dna[i-1]+dna[i]) == s1:
+        #         orf_list.append(orf[:-3])
+        #         orf = ""
+        #     elif (dna[i-2]+dna[i-1]+dna[i]) == s2:
+        #         orf_list.append(orf[:-3])    
+        #         orf = ""
+        #     elif (dna[i-2]+dna[i-1]+dna[i]) == s3:
+        #         orf_list.append(orf[:-3])
+        #         orf = ""
+    return orf_list
 
 
 def find_all_ORFs(dna):
